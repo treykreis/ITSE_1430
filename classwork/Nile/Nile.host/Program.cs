@@ -35,31 +35,39 @@ namespace Nile.host {
             // Ensure not empty
 
             Console.Write("Enter price (> 0): ");
-            string price = Console.ReadLine();
+            productPrice = ReadDecimal();
 
             Console.Write("Enter optional description: ");
             productDescription = Console.ReadLine();
 
             Console.Write("Is it discontinued? (Y/N): ");
-            string discontinued = Console.ReadLine();
+            productDiscontinued = ReadYesNo();
 
         }
         private static void ListProducts()
         {
-            
+            // Name  Price  [Discontinued]
+            // Description
+
+            //string msg = String.Format("{0}\t\t\t${1}\t\t{2}", productName, productPrice, productDiscontinued ? "[Discontinued]" : "");
+            string msg = $"{productName}\t\t${productPrice}\t\t{(productDiscontinued ? "[Discontinued]" : "")}";
+
+            Console.WriteLine(msg);
+            Console.WriteLine(productDescription);
         }
 
         static char GetInput ()
         {
             while (true)
             {
+                Console.WriteLine();
                 Console.WriteLine("Main Menu");
                 Console.WriteLine("".PadLeft(10, '-'));
                 Console.WriteLine("A)dd Product");
                 Console.WriteLine("L)ist Products");
                 Console.WriteLine("Q)uit");
 
-                string input = Console.ReadLine().Trim();
+                var input = Console.ReadLine().Trim();
                 //option 1: if (input != "")
                 //option 2: if (input != null && input.Length != 0)
                 if (input != String.Empty)
@@ -82,6 +90,59 @@ namespace Nile.host {
                 // error
                 Console.WriteLine("Please choose a valid option");
             }
+        }
+
+        /// <summary>Reads a decimal from Console.</summary>
+        /// <returns>The decimal value</returns>
+        static decimal ReadDecimal()
+        {
+            do
+            {
+                string input = Console.ReadLine();
+                if (Decimal.TryParse(input, out decimal result))
+                    return result;
+                Console.WriteLine("Enter a valid decimal");
+            } while (true);
+        }
+        static string ReadString(string errorMessage, bool allowEmpty)
+        {
+            //if (errorMessage == null)
+            //errorMessage = "Enter a valid string";
+            // null coalesce
+            errorMessage = errorMessage ?? "Enter a valid string";
+
+
+            // null conditional. does the expression only if it is not null
+            errorMessage = errorMessage?.Trim();
+            do
+            {
+                var input = Console.ReadLine();
+                if (String.IsNullOrEmpty(input) && allowEmpty)
+                    return "";
+                else if (!String.IsNullOrEmpty(input))
+                    return input;
+                Console.WriteLine(errorMessage);
+
+
+            } while (true);
+        }
+        static bool ReadYesNo()
+        {
+            do
+            {
+                string input = Console.ReadLine();
+                
+                if (!String.IsNullOrEmpty(input))
+                {
+                    switch (Char.ToUpper(input[0]))
+                    {
+                        case 'Y': return true;
+                        case 'N': return false;
+                    };
+                };
+
+                Console.WriteLine("Enter either Y or N");
+            } while (true);
         }
         static void Notes( string[] args )
         {
@@ -108,12 +169,30 @@ namespace Nile.host {
 
             string format3 = $"{name} worked for {hours} hours";
 
-        }
+            //value type
+            int value1 = 100;
+            Program program = new Program();
+            var areEqual1 = value1 == 100;
 
+            /* Parameter kinds
+
+             * Input parameter  (int param)
+             * Input/Output param (ref int param)
+             * Output param (out int param)
+             * 1: func must write
+             */
+
+            // reference types handle null
+            // value types cannot be null
+            // value types are almost always immutable
+
+            
+
+        }
         // Product
-       static string productName;
-       static decimal productPrice;
-       static string productDescription;
-       static bool productDiscontinued;
+        static string productName;
+        static decimal productPrice;
+        static string productDescription;
+        static bool productDiscontinued;
     }
 }
