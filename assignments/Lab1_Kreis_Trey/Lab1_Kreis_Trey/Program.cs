@@ -52,7 +52,7 @@ namespace Lab1_Kreis_Trey
         {
             if (movieTitle == String.Empty || movieTitle == null)
             {
-                Console.WriteLine("No movies avaible");
+                Console.WriteLine("\nNo movies available");
             }
             else
             {
