@@ -12,6 +12,9 @@ namespace Nile.Windows {
         [STAThread]
         static void Main()
         {
+            Product product = new Product();
+            product.Name = "Buhhhhh";
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
