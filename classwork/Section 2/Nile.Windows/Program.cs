@@ -14,6 +14,8 @@ namespace Nile.Windows {
         {
             Product product = new Product();
             product.Name = "Buhhhhh";
+            var price = product.GetDiscountedPrice();
+            var name = product.Name;
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
