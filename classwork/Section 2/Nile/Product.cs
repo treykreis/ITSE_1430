@@ -58,11 +58,11 @@ namespace Nile {
         private string _description;
 
         // notes and stuff
-        public int ICanOnlySetIt { get; private set; }
+        /*public int ICanOnlySetIt { get; private set; }
         public int ICanOnlySetIt2 { get;}
 
         private readonly double _someValueICantChange = 10;
-        public readonly Product None = new Product();
+        public readonly Product None = new Product();*/
 
         // when to use property: should be fast.
         // gets should have no side effects

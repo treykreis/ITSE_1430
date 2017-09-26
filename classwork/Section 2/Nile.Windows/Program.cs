@@ -12,10 +12,10 @@ namespace Nile.Windows {
         [STAThread]
         static void Main()
         {
-            Product product = new Product();
+            /*Product product = new Product();
             product.Name = "Buhhhhh";
             var price = product.GetDiscountedPrice();
-            var name = product.Name;
+            var name = product.Name;*/
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
