@@ -54,8 +54,36 @@ namespace Nile {
                 return Price;
             }
         }
+
+        /// <summary>Validates the object.</summary>
+        /// <returns>the error message or null.</returns>
+        public virtual string Validate ()
+        {
+            // name cannot be empty
+            if (String.IsNullOrEmpty(Name))
+                return "Name cannot be empty.";
+
+            // price >= 0
+            if (Price < 0)
+                return "Price must be >= 0.";
+
+            return null;
+        }
+        // abstract and virtual do the same thing. abstract, all derived MUST provide implementation
+        // cant create instance of abstract class types
+
+        public override string ToString()
+        {
+            return Name;
+        }
+
         private string _name;
         private string _description;
+
+
+
+
+
 
         // notes and stuff
         /*public int ICanOnlySetIt { get; private set; }
@@ -74,5 +102,9 @@ namespace Nile {
         // if allocate memory
 
         //if unsure, lean towards methods
+
+        // constructors used for:
+        // cross field initialization
+        //
     }
 }
