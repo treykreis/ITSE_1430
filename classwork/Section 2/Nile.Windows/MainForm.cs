@@ -55,11 +55,11 @@ namespace Nile.Windows {
         private Product _product;
 
 
-        public delegate void ButtonClickCall( object sender, EventArgs e );
+        /*public delegate void ButtonClickCall( object sender, EventArgs e );
 
         private void CallButton (ButtonClickCall functionToCall)
         {
             functionToCall(this, EventArgs.Empty);
-        }
+        }*/
     }
 }

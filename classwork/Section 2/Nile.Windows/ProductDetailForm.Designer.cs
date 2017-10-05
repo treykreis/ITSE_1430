@@ -26,6 +26,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -35,12 +36,14 @@
             this._chkDiscontinued = new System.Windows.Forms.CheckBox();
             this._btnSave = new System.Windows.Forms.Button();
             this._btnCancel = new System.Windows.Forms.Button();
+            this.Errors = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.Errors)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(27, 24);
+            this.label1.Location = new System.Drawing.Point(38, 30);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(38, 13);
             this.label1.TabIndex = 0;
@@ -49,7 +52,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(27, 70);
+            this.label2.Location = new System.Drawing.Point(13, 56);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(63, 13);
             this.label2.TabIndex = 1;
@@ -57,8 +60,9 @@
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(27, 123);
+            this.label3.Location = new System.Drawing.Point(42, 127);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(34, 13);
             this.label3.TabIndex = 2;
@@ -66,61 +70,80 @@
             // 
             // _txtName
             // 
-            this._txtName.Location = new System.Drawing.Point(96, 24);
+            this._txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this._txtName.Location = new System.Drawing.Point(82, 27);
             this._txtName.Name = "_txtName";
-            this._txtName.Size = new System.Drawing.Size(100, 20);
-            this._txtName.TabIndex = 4;
+            this._txtName.Size = new System.Drawing.Size(246, 20);
+            this._txtName.TabIndex = 0;
+            this._txtName.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidatingName);
             // 
             // _txtDescription
             // 
-            this._txtDescription.Location = new System.Drawing.Point(96, 70);
+            this._txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this._txtDescription.Location = new System.Drawing.Point(82, 53);
+            this._txtDescription.Multiline = true;
             this._txtDescription.Name = "_txtDescription";
-            this._txtDescription.Size = new System.Drawing.Size(100, 20);
-            this._txtDescription.TabIndex = 5;
+            this._txtDescription.Size = new System.Drawing.Size(246, 65);
+            this._txtDescription.TabIndex = 1;
             // 
             // _txtPrice
             // 
-            this._txtPrice.Location = new System.Drawing.Point(96, 123);
+            this._txtPrice.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this._txtPrice.Location = new System.Drawing.Point(82, 124);
             this._txtPrice.Name = "_txtPrice";
             this._txtPrice.Size = new System.Drawing.Size(100, 20);
-            this._txtPrice.TabIndex = 6;
+            this._txtPrice.TabIndex = 2;
+            this._txtPrice.Validating += new System.ComponentModel.CancelEventHandler(this.ValidatingPrice);
             // 
             // _chkDiscontinued
             // 
+            this._chkDiscontinued.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this._chkDiscontinued.AutoSize = true;
-            this._chkDiscontinued.Location = new System.Drawing.Point(96, 182);
+            this._chkDiscontinued.Location = new System.Drawing.Point(82, 150);
             this._chkDiscontinued.Name = "_chkDiscontinued";
             this._chkDiscontinued.Size = new System.Drawing.Size(111, 17);
-            this._chkDiscontinued.TabIndex = 7;
+            this._chkDiscontinued.TabIndex = 3;
             this._chkDiscontinued.Text = "Is it discontinued?";
             this._chkDiscontinued.UseVisualStyleBackColor = true;
             this._chkDiscontinued.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // _btnSave
             // 
-            this._btnSave.Location = new System.Drawing.Point(236, 229);
+            this._btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this._btnSave.Location = new System.Drawing.Point(172, 200);
             this._btnSave.Name = "_btnSave";
             this._btnSave.Size = new System.Drawing.Size(75, 23);
-            this._btnSave.TabIndex = 8;
+            this._btnSave.TabIndex = 4;
             this._btnSave.Text = "Save";
             this._btnSave.UseVisualStyleBackColor = true;
             this._btnSave.Click += new System.EventHandler(this.OnSave);
             // 
             // _btnCancel
             // 
-            this._btnCancel.Location = new System.Drawing.Point(317, 229);
+            this._btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this._btnCancel.CausesValidation = false;
+            this._btnCancel.Location = new System.Drawing.Point(253, 200);
             this._btnCancel.Name = "_btnCancel";
             this._btnCancel.Size = new System.Drawing.Size(75, 23);
-            this._btnCancel.TabIndex = 9;
+            this._btnCancel.TabIndex = 5;
             this._btnCancel.Text = "Cancel";
             this._btnCancel.UseVisualStyleBackColor = true;
             this._btnCancel.Click += new System.EventHandler(this.OnCancel);
+            // 
+            // Errors
+            // 
+            this.Errors.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.Errors.ContainerControl = this;
             // 
             // ProductDetailForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(412, 267);
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
+            this.ClientSize = new System.Drawing.Size(359, 237);
             this.Controls.Add(this._btnCancel);
             this.Controls.Add(this._btnSave);
             this.Controls.Add(this._chkDiscontinued);
@@ -130,17 +153,16 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(375, 276);
             this.Name = "ProductDetailForm";
             this.ShowIcon = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Product Details";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ProductDetailForm_FormClosing);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ProductDetailForm_FormClosed);
             this.Load += new System.EventHandler(this.ProductDetailForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.Errors)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -157,5 +179,6 @@
         private System.Windows.Forms.CheckBox _chkDiscontinued;
         private System.Windows.Forms.Button _btnSave;
         private System.Windows.Forms.Button _btnCancel;
+        private System.Windows.Forms.ErrorProvider Errors;
     }
 }

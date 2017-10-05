@@ -37,6 +37,7 @@ namespace Nile {
                 _txtPrice.Text = Product.Price.ToString();
                 _chkDiscontinued.Checked = Product.IsDiscontinued;
             }
+            ValidateChildren();
         }
 
         /// <summary>Gets or sets the product being shown</summary>
@@ -63,11 +64,15 @@ namespace Nile {
         }
         private void OnSave( object sender, EventArgs e )
         {
+            if (!ValidateChildren())
+            {
+                return;
+            };
             var product = new Product();
             product.Name = _txtName.Text;
             product.Description = _txtDescription.Text;
 
-            product.Price = GetPrice();
+            product.Price = GetPrice(_txtPrice);
             product.IsDiscontinued = _chkDiscontinued.Checked;
 
             var error = product.Validate();
@@ -83,13 +88,13 @@ namespace Nile {
             Close();
         }
 
-        private decimal GetPrice()
+        private decimal GetPrice(TextBox control)
         {
-            if (Decimal.TryParse(_txtPrice.Text, out decimal price))
+            if (Decimal.TryParse(control.Text, out decimal price))
                 return price;
 
             //TODO: validate price
-            return 0;
+            return -1;
         }
 
         private void ProductDetailForm_FormClosing( object sender, FormClosingEventArgs e )
@@ -103,5 +108,31 @@ namespace Nile {
         {
 
         }
+
+        private void ValidatingPrice( object sender, CancelEventArgs e )
+        {
+            var tb = sender as TextBox;
+
+            if (GetPrice(tb) < 0)
+            {
+                e.Cancel = true;
+                Errors.SetError(_txtPrice, "Price must be >= 0.");
+            } else
+                Errors.SetError(_txtPrice, "");
+        }
+
+        private void OnValidatingName( object sender, CancelEventArgs e )
+        {
+            var tb = sender as TextBox;
+            if (String.IsNullOrEmpty(tb.Text))
+                Errors.SetError(tb, "Name is required");
+            else
+                Errors.SetError(tb, "");
+        }
     }
+
+    // load -> first render. only once
+    //FormClosing, and then FormClosed
+    //FormClosing -> pre close. still on the screen. can be cancelled
+    //if not cancelled, it's gone. FormClosed -> post close. can do cleanup
 }
