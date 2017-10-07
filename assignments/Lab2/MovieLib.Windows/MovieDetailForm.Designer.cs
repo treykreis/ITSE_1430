@@ -49,6 +49,8 @@
 			// 
 			// _txtTitle
 			// 
+			this._txtTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this._txtTitle.Location = new System.Drawing.Point(78, 12);
 			this._txtTitle.Name = "_txtTitle";
 			this._txtTitle.Size = new System.Drawing.Size(361, 20);
@@ -65,6 +67,8 @@
 			// 
 			// _txtDescription
 			// 
+			this._txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this._txtDescription.Location = new System.Drawing.Point(78, 38);
 			this._txtDescription.Multiline = true;
 			this._txtDescription.Name = "_txtDescription";
@@ -99,6 +103,7 @@
 			// 
 			// _btnSave
 			// 
+			this._btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this._btnSave.Location = new System.Drawing.Point(283, 195);
 			this._btnSave.Name = "_btnSave";
 			this._btnSave.Size = new System.Drawing.Size(75, 23);
@@ -109,6 +114,7 @@
 			// 
 			// _btnCancel
 			// 
+			this._btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this._btnCancel.Location = new System.Drawing.Point(364, 195);
 			this._btnCancel.Name = "_btnCancel";
 			this._btnCancel.Size = new System.Drawing.Size(75, 23);
@@ -141,6 +147,7 @@
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this._txtTitle);
 			this.Controls.Add(this.label1);
+			this.MinimumSize = new System.Drawing.Size(479, 274);
 			this.Name = "MovieDetailForm";
 			this.Text = "Movie Details";
 			this.ResumeLayout(false);
