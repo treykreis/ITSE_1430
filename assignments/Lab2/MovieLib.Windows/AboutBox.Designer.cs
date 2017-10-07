@@ -1,4 +1,4 @@
-﻿namespace Nile.Windows {
+﻿namespace MovieLib.Windows {
     partial class AboutBox {
         /// <summary>
         /// Required designer variable.
@@ -8,7 +8,7 @@
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        protected override void Dispose( bool disposing )
+        protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
             {
@@ -147,7 +147,7 @@
 			this.okButton.TabIndex = 24;
 			this.okButton.Text = "&OK";
 			// 
-			// AboutBox
+			// AboutBox1
 			// 
 			this.AcceptButton = this.okButton;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -157,12 +157,12 @@
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
-			this.Name = "AboutBox";
+			this.Name = "AboutBox1";
 			this.Padding = new System.Windows.Forms.Padding(9);
 			this.ShowIcon = false;
 			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-			this.Text = "AboutBox";
+			this.Text = "AboutBox1";
 			this.tableLayoutPanel.ResumeLayout(false);
 			this.tableLayoutPanel.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
