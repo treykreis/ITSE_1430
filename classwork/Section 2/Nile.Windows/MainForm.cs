@@ -9,6 +9,35 @@ namespace Nile.Windows {
             
         }
 
+        protected override void OnLoad( EventArgs e )
+        {
+            base.OnLoad(e);
+
+            var products = _database.GetAll();
+        }
+
+        /*private int FindAvailableElement()
+        {
+            for (var index = 0; index < _products.Length; ++index)
+            {
+                if (_products[index] == null)
+                    return index;
+            };
+
+            return -1;
+        }
+
+        private int FindFirstProduct()
+        {
+            for (var index = 0; index < _products.Length; ++index)
+            {
+                if (_products[index] != null)
+                    return index;
+            };
+
+            return -1;
+        }*/
+
         private void OnFileExit( object sender, EventArgs e )
         {
             Close();
@@ -16,12 +45,15 @@ namespace Nile.Windows {
 
         private void OnProductEdit( object sender, EventArgs e )
         {
+            var product = _database.Get();
+
             var child = new ProductDetailForm();
-            child.Product = _product;
+            child.Product = product;
             if (child.ShowDialog(this) != DialogResult.OK)
                 return;
+
             //TODO: save product
-            _product = child.Product;
+            _database.Update(child.Product);
         }
 
         private void OnProductAdd( object sender, EventArgs e )
@@ -29,22 +61,23 @@ namespace Nile.Windows {
             var child = new ProductDetailForm();
             if (child.ShowDialog(this) != DialogResult.OK)
                 return;
-            //TODO: save product
-            _product = child.Product;
+
+            //save product
+            _database.Add(child.Product);
         }
 
         private void OnProductDelete( object sender, EventArgs e )
         {
-            if (_product == null)
-                return;
+           
+            var product = _database.Get();
 
             // confirm
-            if (MessageBox.Show(this, $"Are you sure you want to delete '{_product.Name}'?", "Delete",
+            if (MessageBox.Show(this, $"Are you sure you want to delete '{product.Name}'?", "Delete",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 return;
 
             //TODO: delete product
-            _product = null;
+            _database.Remove(product);
         }
         private void OnHelpAbout( object sender, EventArgs e )
         {
@@ -52,7 +85,7 @@ namespace Nile.Windows {
             about.ShowDialog(this);
         }
 
-        private Product _product;
+        private ProductDatabase _database = new ProductDatabase();
 
 
         /*public delegate void ButtonClickCall( object sender, EventArgs e );

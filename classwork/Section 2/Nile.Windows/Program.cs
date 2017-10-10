@@ -12,10 +12,13 @@ namespace Nile.Windows {
         [STAThread]
         static void Main()
         {
-            /*Product product = new Product();
-            product.Name = "Buhhhhh";
-            var price = product.GetDiscountedPrice();
-            var name = product.Name;*/
+            // string split example
+            /*var csv = "Field1 | Field2 ,, Field3 | Field4";
+            var delemiters = new char[2];
+            delemiters[0] = '|';
+            delemiters[1] = ',';
+            var tokens = csv.Split(delemiters, StringSplitOptions.RemoveEmptyEntries);
+            var numberOfElements = tokens.Length;*/
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
