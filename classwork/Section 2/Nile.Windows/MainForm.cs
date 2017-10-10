@@ -12,7 +12,7 @@ namespace Nile.Windows {
         protected override void OnLoad( EventArgs e )
         {
             base.OnLoad(e);
-
+            // 
             var products = _database.GetAll();
         }
 
