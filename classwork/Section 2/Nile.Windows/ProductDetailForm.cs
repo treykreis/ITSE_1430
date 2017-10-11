@@ -69,6 +69,7 @@ namespace Nile {
                 return;
             };
             var product = new Product();
+            product.Id = Product?.Id ?? 0;
             product.Name = _txtName.Text;
             product.Description = _txtDescription.Text;
 
@@ -85,6 +86,7 @@ namespace Nile {
 
             Product = product;
             this.DialogResult = DialogResult.OK;
+            
             Close();
         }
 

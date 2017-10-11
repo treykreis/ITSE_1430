@@ -41,6 +41,9 @@ namespace Nile {
         /// <summary> Determines if discontinued</summary>
         public bool IsDiscontinued { get; set; }
 
+        /// <summary> Gets or sets the unique identifier</summary>
+        public int Id { get; set; }
+
 
         public const decimal DiscontinuedDiscountRate = 0.10M;
         /// <summary>Gets the discounted price, if applicable</summary>

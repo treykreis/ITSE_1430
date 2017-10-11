@@ -12,8 +12,8 @@ namespace Nile.Windows {
         protected override void OnLoad( EventArgs e )
         {
             base.OnLoad(e);
-            // 
-            var products = _database.GetAll();
+
+            UpdateList();
         }
 
         /*private int FindAvailableElement()
@@ -45,7 +45,12 @@ namespace Nile.Windows {
 
         private void OnProductEdit( object sender, EventArgs e )
         {
-            var product = _database.Get();
+            var product = GetSelectedProduct();
+            if (product == null)
+            {
+                MessageBox.Show("No products available.");
+                return;
+            }
 
             var child = new ProductDetailForm();
             child.Product = product;
@@ -54,6 +59,7 @@ namespace Nile.Windows {
 
             //TODO: save product
             _database.Update(child.Product);
+            UpdateList();
         }
 
         private void OnProductAdd( object sender, EventArgs e )
@@ -64,12 +70,20 @@ namespace Nile.Windows {
 
             //save product
             _database.Add(child.Product);
+            UpdateList();
+
+
         }
 
         private void OnProductDelete( object sender, EventArgs e )
         {
-           
-            var product = _database.Get();
+
+            var product = GetSelectedProduct();
+            if (product == null)
+            {
+                MessageBox.Show("No products available.");
+                return;
+            }
 
             // confirm
             if (MessageBox.Show(this, $"Are you sure you want to delete '{product.Name}'?", "Delete",
@@ -77,12 +91,27 @@ namespace Nile.Windows {
                 return;
 
             //TODO: delete product
-            _database.Remove(product);
+            _database.Remove(product.Id);
+            UpdateList();
         }
         private void OnHelpAbout( object sender, EventArgs e )
         {
             var about = new AboutBox();
             about.ShowDialog(this);
+        }
+
+        private Product GetSelectedProduct()
+        {
+            return _listProducts.SelectedItem as Product;
+        }
+
+        public void UpdateList()
+        {
+            _listProducts.Items.Clear();
+            foreach (var product in _database.GetAll())
+            {
+                _listProducts.Items.Add(product);
+            }
         }
 
         private ProductDatabase _database = new ProductDatabase();
