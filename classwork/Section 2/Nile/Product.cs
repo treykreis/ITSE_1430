@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ namespace Nile {
     /// Represents a product
     /// </summary>
     /// <remarks>This will represent a product with other stuff</remarks>
-    public class Product 
+    public class Product : IValidatableObject
     {
         /// <summary> Gets or sets the description</summary>
         /// ///<value>Never returns null</value>
@@ -57,21 +58,23 @@ namespace Nile {
                 return Price;
             }
         }
-
-        /// <summary>Validates the object.</summary>
-        /// <returns>the error message or null.</returns>
-        public virtual string Validate ()
+        
+        public IEnumerable<ValidationResult> Validate( ValidationContext validationContext )
         {
+
+            //var errors = new List<ValidationResult>();
             // name cannot be empty
             if (String.IsNullOrEmpty(Name))
-                return "Name cannot be empty.";
+                yield return new ValidationResult("Name cannot be empty.", new[] { nameof(Name) });
+                //errors.Add(new ValidationResult("Name cannot be empty.", new[] { nameof(Name) }));
 
             // price >= 0
             if (Price < 0)
-                return "Price must be >= 0.";
-
-            return null;
+                yield return new ValidationResult("Prices must be >= 0.", new[] { nameof(Price) });
+                //errors.Add(new ValidationResult("Prices must be >= 0.", new[] { nameof(Price) }));
+                //return errors;
         }
+
         // abstract and virtual do the same thing. abstract, all derived MUST provide implementation
         // cant create instance of abstract class types
 
@@ -79,6 +82,8 @@ namespace Nile {
         {
             return Name;
         }
+
+        
 
         private string _name;
         private string _description;

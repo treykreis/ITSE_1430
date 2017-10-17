@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,25 +12,25 @@ namespace Nile {
     {
         public ProductDatabase()
         {
+            //_products.Add(new Product() {Id = 1, Name = "very fast car", Price = 66666, });
+            //_products.Add(new Product() {Id = 2, Name = "Bird", Price = 100, IsDiscontinued = true, });
+            //_products.Add(new Product() {Id = 3, Name = "Bird 2", Price = 4000, });
 
-            var product = new Product();
-            product.Name = "very fast car";
-            product.Price = 66666;
-            Add(product);
+            //Collection initializer syntax
+            _products = new List<Product>() {
+                new Product() { Id = 1, Name = "very fast car", Price = 66666, },
+                new Product() { Id = 2, Name = "Bird", Price = 100, IsDiscontinued = true, },
+                new Product() { Id = 3, Name = "Bird 2", Price = 4000, },
+            };
 
-            product = new Product();
-            product.Name = "Bird";
-            product.Price = 100;
-            product.IsDiscontinued = true;
-            Add(product);
+            //Collection initializer syntax with array
+            //_products.AddRange(new [] {
+            //    new Product() { Id = 1, Name = "very fast car", Price = 66666, },
+            //    new Product() { Id = 2, Name = "Bird", Price = 100, IsDiscontinued = true, },
+            //    new Product() { Id = 3, Name = "Bird 2", Price = 4000, },
+            //});
 
-            product = new Product();
-            product = new Product();
-            product.Name = "Bird 2";
-            product.Price = 4000;
-            Add(product);
-
-
+            _nextId = _products.Count + 1;
         }
 
         /// <summary>Adds a product.</summary>
@@ -40,8 +41,11 @@ namespace Nile {
             // TODO: Validate
             if (product == null)
                 return null;
-            if (!String.IsNullOrEmpty(product.Validate()))
+
+            if (!ObjectValidator.TryValidate(product, out var errors))
                 return null;
+            //if (!String.IsNullOrEmpty(product.Validate()))
+            //    return null;
 
             // emulate database by storing copy
             var newProduct = CopyProduct(product);
@@ -102,7 +106,7 @@ namespace Nile {
         {
             if (product == null)
                 return null;
-            if (!String.IsNullOrEmpty(product.Validate()))
+            if (!ObjectValidator.TryValidate(product, out var errors))
                 return null;
 
             // get existing product
