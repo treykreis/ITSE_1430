@@ -114,7 +114,7 @@ namespace Nile.Windows {
             }
         }
 
-        private ProductDatabase _database = new ProductDatabase();
+        private IProductDatabase _database = new Nile.Stores.MemoryProductDatabase();
 
 
         /*public delegate void ButtonClickCall( object sender, EventArgs e );

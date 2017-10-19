@@ -75,6 +75,10 @@ namespace Nile {
                 //return errors;
         }
 
+        //list / collections are readable and writiable
+        // arrays readable and replacable
+        // IEnumerable is read only
+
         // abstract and virtual do the same thing. abstract, all derived MUST provide implementation
         // cant create instance of abstract class types
 
