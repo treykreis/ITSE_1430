@@ -16,17 +16,8 @@ namespace Nile {
         /// ///<value>Never returns null</value>
         public string Name
         {
-            // string get_Name ()
-            get 
-            {
-                return _name ?? "";
-            }
-
-            // void set_Name (string value)
-            set
-            {
-                _name = value?.Trim();
-            }
+            get { return _name ?? "";}
+            set { _name = value?.Trim(); }
         }
 
         /// <summary> Gets or sets the description</summary>
@@ -45,19 +36,8 @@ namespace Nile {
         /// <summary> Gets or sets the unique identifier</summary>
         public int Id { get; set; }
 
-
-        public const decimal DiscontinuedDiscountRate = 0.10M;
         /// <summary>Gets the discounted price, if applicable</summary>
         /// <returns>The price</returns>
-        public decimal DiscountedPrice
-        {
-            get 
-            {
-                if (IsDiscontinued)
-                    return Price * DiscontinuedDiscountRate;
-                return Price;
-            }
-        }
         
         public IEnumerable<ValidationResult> Validate( ValidationContext validationContext )
         {
@@ -75,34 +55,15 @@ namespace Nile {
                 //return errors;
         }
 
-        //list / collections are readable and writiable
-        // arrays readable and replacable
-        // IEnumerable is read only
-
-        // abstract and virtual do the same thing. abstract, all derived MUST provide implementation
-        // cant create instance of abstract class types
-
         public override string ToString()
         {
             return Name;
         }
-
         
-
         private string _name;
         private string _description;
 
-
-
-
-
-
         // notes and stuff
-        /*public int ICanOnlySetIt { get; private set; }
-        public int ICanOnlySetIt2 { get;}
-
-        private readonly double _someValueICantChange = 10;
-        public readonly Product None = new Product();*/
 
         // when to use property: should be fast.
         // gets should have no side effects
@@ -117,6 +78,12 @@ namespace Nile {
 
         // constructors used for:
         // cross field initialization
-        //
+
+        //list / collections are readable and writiable
+        // arrays readable and replacable
+        // IEnumerable is read only
+
+        // abstract and virtual do the same thing. abstract, all derived MUST provide implementation
+        // cant create instance of abstract class types
     }
 }

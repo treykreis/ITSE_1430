@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Nile.Windows {
@@ -12,31 +13,9 @@ namespace Nile.Windows {
         protected override void OnLoad( EventArgs e )
         {
             base.OnLoad(e);
-
+            _gridProducts.AutoGenerateColumns = false;
             UpdateList();
         }
-
-        /*private int FindAvailableElement()
-        {
-            for (var index = 0; index < _products.Length; ++index)
-            {
-                if (_products[index] == null)
-                    return index;
-            };
-
-            return -1;
-        }
-
-        private int FindFirstProduct()
-        {
-            for (var index = 0; index < _products.Length; ++index)
-            {
-                if (_products[index] != null)
-                    return index;
-            };
-
-            return -1;
-        }*/
 
         private void OnFileExit( object sender, EventArgs e )
         {
@@ -71,13 +50,10 @@ namespace Nile.Windows {
             //save product
             _database.Add(child.Product);
             UpdateList();
-
-
         }
 
         private void OnProductDelete( object sender, EventArgs e )
         {
-
             var product = GetSelectedProduct();
             if (product == null)
             {
@@ -102,26 +78,24 @@ namespace Nile.Windows {
 
         private Product GetSelectedProduct()
         {
-            return _listProducts.SelectedItem as Product;
+            // return _listProducts.SelectedItem as Product;
+            return null;
         }
 
         public void UpdateList()
         {
-            _listProducts.Items.Clear();
-            foreach (var product in _database.GetAll())
-            {
-                _listProducts.Items.Add(product);
-            }
+            
+            _gridProducts.DataSource = _database.GetAll().ToList();
+
+            //_listProducts.Items.Clear();
+            //foreach (var product in _database.GetAll())
+            //{
+            //    _listProducts.Items.Add(product);
+            //}
         }
 
-        private IProductDatabase _database = new Nile.Stores.MemoryProductDatabase();
-
-
-        /*public delegate void ButtonClickCall( object sender, EventArgs e );
-
-        private void CallButton (ButtonClickCall functionToCall)
-        {
-            functionToCall(this, EventArgs.Empty);
-        }*/
+        private IProductDatabase _database = new Nile.Stores.SeededMemoryProductDatabase();
     }
+
+    // binding source is a wrapper around the data you work it. datagridview wants to use this
 }

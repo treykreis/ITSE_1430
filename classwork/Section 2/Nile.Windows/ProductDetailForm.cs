@@ -68,12 +68,6 @@ namespace Nile {
             {
                 return;
             };
-            //var product = new Product();
-            //product.Id = Product?.Id ?? 0;
-            //product.Name = _txtName.Text;
-            //product.Description = _txtDescription.Text;
-            //product.Price = GetPrice(_txtPrice);
-            //product.IsDiscontinued = _chkDiscontinued.Checked;
 
             // Object initializer syntax
             var product = new Product() {
@@ -111,11 +105,6 @@ namespace Nile {
             var form = sender as Form;
             if (MessageBox.Show(this, "Are you sure?", "Closing", MessageBoxButtons.YesNo) == DialogResult.No)
                 e.Cancel = true;
-        }
-
-        private void ProductDetailForm_FormClosed( object sender, FormClosedEventArgs e )
-        {
-
         }
 
         private void ValidatingPrice( object sender, CancelEventArgs e )
