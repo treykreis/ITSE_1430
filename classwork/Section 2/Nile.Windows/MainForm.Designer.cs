@@ -26,6 +26,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this._mainMenu = new System.Windows.Forms.MenuStrip();
@@ -39,13 +40,15 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._miHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this._gridProducts = new System.Windows.Forms.DataGridView();
-            this.col_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_IsDiscontinued = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.isDiscontinuedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._bsProducts = new System.Windows.Forms.BindingSource(this.components);
             this._mainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this._gridProducts)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._bsProducts)).BeginInit();
             this.SuspendLayout();
             // 
             // _mainMenu
@@ -132,68 +135,87 @@
             // 
             // _gridProducts
             // 
+            this._gridProducts.AllowUserToAddRows = false;
+            this._gridProducts.AllowUserToDeleteRows = false;
             this._gridProducts.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this._gridProducts.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this._gridProducts.AutoGenerateColumns = false;
             this._gridProducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this._gridProducts.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.col_Name,
-            this.col_Id,
-            this.col_Description,
-            this.col_Price,
-            this.col_IsDiscontinued});
+            this.nameDataGridViewTextBoxColumn,
+            this.descriptionDataGridViewTextBoxColumn,
+            this.priceDataGridViewTextBoxColumn,
+            this.isDiscontinuedDataGridViewCheckBoxColumn,
+            this.idDataGridViewTextBoxColumn});
+            this._gridProducts.DataSource = this._bsProducts;
             this._gridProducts.Dock = System.Windows.Forms.DockStyle.Fill;
             this._gridProducts.Location = new System.Drawing.Point(0, 24);
             this._gridProducts.Name = "_gridProducts";
+            this._gridProducts.ReadOnly = true;
             this._gridProducts.RowHeadersVisible = false;
             this._gridProducts.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this._gridProducts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this._gridProducts.Size = new System.Drawing.Size(634, 287);
             this._gridProducts.TabIndex = 1;
+            this._gridProducts.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.OnEditRow);
+            this._gridProducts.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnKeyDownGrid);
             // 
-            // col_Name
+            // nameDataGridViewTextBoxColumn
             // 
-            this.col_Name.DataPropertyName = "Name";
-            this.col_Name.FillWeight = 200F;
-            this.col_Name.Frozen = true;
-            this.col_Name.HeaderText = "Name";
-            this.col_Name.MaxInputLength = 100;
-            this.col_Name.MinimumWidth = 200;
-            this.col_Name.Name = "col_Name";
-            this.col_Name.Width = 200;
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.FillWeight = 200F;
+            this.nameDataGridViewTextBoxColumn.Frozen = true;
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn.MinimumWidth = 200;
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
+            this.nameDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.nameDataGridViewTextBoxColumn.Width = 200;
             // 
-            // col_Id
+            // descriptionDataGridViewTextBoxColumn
             // 
-            this.col_Id.DataPropertyName = "Id";
-            this.col_Id.HeaderText = "ID";
-            this.col_Id.Name = "col_Id";
-            this.col_Id.ReadOnly = true;
-            this.col_Id.Visible = false;
+            this.descriptionDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "Description";
+            this.descriptionDataGridViewTextBoxColumn.FillWeight = 300F;
+            this.descriptionDataGridViewTextBoxColumn.HeaderText = "Description";
+            this.descriptionDataGridViewTextBoxColumn.MinimumWidth = 200;
+            this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
+            this.descriptionDataGridViewTextBoxColumn.ReadOnly = true;
+            this.descriptionDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
-            // col_Description
+            // priceDataGridViewTextBoxColumn
             // 
-            this.col_Description.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col_Description.DataPropertyName = "Description";
-            this.col_Description.FillWeight = 300F;
-            this.col_Description.HeaderText = "Description";
-            this.col_Description.MinimumWidth = 200;
-            this.col_Description.Name = "col_Description";
-            // 
-            // col_Price
-            // 
-            this.col_Price.DataPropertyName = "Price";
+            this.priceDataGridViewTextBoxColumn.DataPropertyName = "Price";
             dataGridViewCellStyle2.Format = "C2";
             dataGridViewCellStyle2.NullValue = null;
-            this.col_Price.DefaultCellStyle = dataGridViewCellStyle2;
-            this.col_Price.HeaderText = "Price";
-            this.col_Price.MinimumWidth = 100;
-            this.col_Price.Name = "col_Price";
+            this.priceDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            this.priceDataGridViewTextBoxColumn.HeaderText = "Price";
+            this.priceDataGridViewTextBoxColumn.Name = "priceDataGridViewTextBoxColumn";
+            this.priceDataGridViewTextBoxColumn.ReadOnly = true;
+            this.priceDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
-            // col_IsDiscontinued
+            // isDiscontinuedDataGridViewCheckBoxColumn
             // 
-            this.col_IsDiscontinued.DataPropertyName = "IsDiscontinued";
-            this.col_IsDiscontinued.HeaderText = "Is discontinued";
-            this.col_IsDiscontinued.Name = "col_IsDiscontinued";
-            this.col_IsDiscontinued.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.isDiscontinuedDataGridViewCheckBoxColumn.DataPropertyName = "IsDiscontinued";
+            this.isDiscontinuedDataGridViewCheckBoxColumn.HeaderText = "Is discontinued?";
+            this.isDiscontinuedDataGridViewCheckBoxColumn.Name = "isDiscontinuedDataGridViewCheckBoxColumn";
+            this.isDiscontinuedDataGridViewCheckBoxColumn.ReadOnly = true;
+            this.isDiscontinuedDataGridViewCheckBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // idDataGridViewTextBoxColumn
+            // 
+            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.ReadOnly = true;
+            this.idDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.idDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // _bsProducts
+            // 
+            this._bsProducts.AllowNew = false;
+            this._bsProducts.DataSource = typeof(Nile.Product);
             // 
             // MainForm
             // 
@@ -208,6 +230,7 @@
             this._mainMenu.ResumeLayout(false);
             this._mainMenu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this._gridProducts)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._bsProducts)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -226,11 +249,12 @@
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem _miHelpAbout;
         private System.Windows.Forms.DataGridView _gridProducts;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_Name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_Id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_Description;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_Price;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn col_IsDiscontinued;
+        private System.Windows.Forms.BindingSource _bsProducts;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn priceDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn isDiscontinuedDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
     }
 }
 

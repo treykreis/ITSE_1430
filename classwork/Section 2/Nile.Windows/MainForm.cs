@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -30,7 +31,11 @@ namespace Nile.Windows {
                 MessageBox.Show("No products available.");
                 return;
             }
+            EditProduct(product);
+        }
 
+        private void EditProduct( Product product )
+        {
             var child = new ProductDetailForm();
             child.Product = product;
             if (child.ShowDialog(this) != DialogResult.OK)
@@ -61,6 +66,11 @@ namespace Nile.Windows {
                 return;
             }
 
+            DeleteProduct(product);
+        }
+
+        private void DeleteProduct( Product product )
+        {
             // confirm
             if (MessageBox.Show(this, $"Are you sure you want to delete '{product.Name}'?", "Delete",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
@@ -70,6 +80,7 @@ namespace Nile.Windows {
             _database.Remove(product.Id);
             UpdateList();
         }
+
         private void OnHelpAbout( object sender, EventArgs e )
         {
             var about = new AboutBox();
@@ -79,14 +90,17 @@ namespace Nile.Windows {
         private Product GetSelectedProduct()
         {
             // return _listProducts.SelectedItem as Product;
+            if (_gridProducts.SelectedRows.Count > 0)
+                return _gridProducts.SelectedRows[0].DataBoundItem as Product;
+
             return null;
         }
 
         public void UpdateList()
         {
+            //new BindingList<Product>();
             
-            _gridProducts.DataSource = _database.GetAll().ToList();
-
+            _bsProducts.DataSource = _database.GetAll().ToList();
             //_listProducts.Items.Clear();
             //foreach (var product in _database.GetAll())
             //{
@@ -95,6 +109,30 @@ namespace Nile.Windows {
         }
 
         private IProductDatabase _database = new Nile.Stores.SeededMemoryProductDatabase();
+
+        private void OnEditRow( object sender, DataGridViewCellEventArgs e )
+        {
+            var grid = sender as DataGridView;
+
+            if (e.RowIndex < 0)
+                return;
+            var row = grid.Rows[e.RowIndex];
+            var item = row.DataBoundItem as Product;
+
+            if (item != null)
+                 EditProduct(item);
+        }
+
+        private void OnKeyDownGrid( object sender, KeyEventArgs e )
+        {
+            if (e.KeyCode != Keys.Delete)
+                return;
+
+            var product = GetSelectedProduct();
+            if (product != null)
+                DeleteProduct(product);
+
+        }
     }
 
     // binding source is a wrapper around the data you work it. datagridview wants to use this
