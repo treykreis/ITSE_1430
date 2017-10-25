@@ -15,7 +15,7 @@ namespace Nile.Windows {
         {
             base.OnLoad(e);
             _gridProducts.AutoGenerateColumns = false;
-            UpdateList();
+            UpdateList(); 
         }
 
         private void OnFileExit( object sender, EventArgs e )
