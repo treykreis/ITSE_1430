@@ -48,6 +48,7 @@ namespace Nile.Windows {
 
         private void OnProductAdd( object sender, EventArgs e )
         {
+
             var child = new ProductDetailForm();
             if (child.ShowDialog(this) != DialogResult.OK)
                 return;
@@ -108,7 +109,7 @@ namespace Nile.Windows {
             //}
         }
 
-        private IProductDatabase _database = new Nile.Stores.SeededMemoryProductDatabase();
+        private IProductDatabase _database = new Nile.Stores.MemoryProductDatabase();
 
         private void OnEditRow( object sender, DataGridViewCellEventArgs e )
         {
