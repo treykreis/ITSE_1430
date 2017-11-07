@@ -21,7 +21,7 @@ namespace Nile.Windows {
             _database.WithSeedData();
 
             _gridProducts.AutoGenerateColumns = false;
-            UpdateList(); 
+            UpdateList(); //
         }
 
         private void OnProductEdit( object sender, EventArgs e )
