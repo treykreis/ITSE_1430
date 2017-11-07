@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
+using Nile.Stores;
 
 namespace Nile.Windows {
     public partial class MainForm : Form {
@@ -14,13 +15,13 @@ namespace Nile.Windows {
         protected override void OnLoad( EventArgs e )
         {
             base.OnLoad(e);
+            _miFileExit.Click += ( o, ev ) => Close();
+            _database = new Nile.Stores.FileProductDatabase("products.csv");
+            //ProductDatabaseExtensions.WithSeedData(_database);
+            _database.WithSeedData();
+
             _gridProducts.AutoGenerateColumns = false;
             UpdateList(); 
-        }
-
-        private void OnFileExit( object sender, EventArgs e )
-        {
-            Close();
         }
 
         private void OnProductEdit( object sender, EventArgs e )
@@ -77,7 +78,7 @@ namespace Nile.Windows {
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 return;
 
-            //TODO: delete product
+
             _database.Remove(product.Id);
             UpdateList();
         }
@@ -109,8 +110,6 @@ namespace Nile.Windows {
             //}
         }
 
-        private IProductDatabase _database = new Nile.Stores.MemoryProductDatabase();
-
         private void OnEditRow( object sender, DataGridViewCellEventArgs e )
         {
             var grid = sender as DataGridView;
@@ -136,6 +135,8 @@ namespace Nile.Windows {
             e.SuppressKeyPress = true;
 
         }
+
+        private IProductDatabase _database;
     }
 
     // binding source is a wrapper around the data you work it. datagridview wants to use this

@@ -43,28 +43,11 @@ namespace Nile.Stores {
         /// <returns>The products.</returns>
         protected override IEnumerable<Product> GetAllCore()
         {
-            
-            foreach (var product in _products)
-                yield return CopyProduct(product);
-
-            // how many products?
-            //var count = 0;
-            //foreach(var product in _products)
-            //{
-            //    if (product != null)
-            //        ++count;
-            //}
-
-            //var items = new Product[count];
-            //var index = 0;
             //foreach (var product in _products)
-            //{
-            //    if (product != null)
-            //        items[index++] = CopyProduct(product);
-            //};
-            //return items;
+            //    yield return CopyProduct(product);
 
-       
+            return from item in _products
+                   select CopyProduct(item);
         }
 
         /// <summary>Updates the product.</summary>
@@ -108,13 +91,21 @@ namespace Nile.Stores {
         // Find a product by ID
         private Product FindProduct (int id)
         {
-            foreach (var product in _products)
-            {
-                if (product.Id == id)
-                    return product;
-            };
+            //foreach (var product in _products)
+            //{
+            //    if (product.Id == id)
+            //        return product;
+            //};
+            //return null;
 
-            return null;
+            return (from product in _products
+                    where product.Id == id
+                    select product).FirstOrDefault();
+
+            // LINQ conversion syntax
+            //return _products.Where(p => p.Id == id)
+            //                .Select(p => p)
+            //                .FirstOrDefault();
         }
 
         //private Product[] _products = new Product[100];
