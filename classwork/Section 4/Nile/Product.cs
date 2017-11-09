@@ -27,6 +27,9 @@ namespace Nile {
             set { _description = value?.Trim(); }
         }
 
+        // 1 getter, no setter
+        //public decimal CalculatedProperty => 0M;
+
         /// <summary>Gets or sets the price</summary>
         public decimal Price { get; set; } = 0;
 
@@ -55,10 +58,14 @@ namespace Nile {
                 //return errors;
         }
 
-        public override string ToString()
-        {
-            return Name;
-        }
+        //public override string ToString()
+        //{
+        //    return Name;
+        //}
+
+        // lambda
+        public override string ToString() => Name;
+    
         
         private string _name;
         private string _description;
