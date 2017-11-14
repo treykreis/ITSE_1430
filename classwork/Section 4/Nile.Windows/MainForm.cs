@@ -1,8 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Configuration;
 using System.Linq;
 using System.Windows.Forms;
 using Nile.Stores;
+using Nile.Stores.Sql;
 
 namespace Nile.Windows {
     public partial class MainForm : Form {
@@ -16,12 +18,14 @@ namespace Nile.Windows {
         {
             base.OnLoad(e);
             _miFileExit.Click += ( o, ev ) => Close();
-            _database = new Nile.Stores.FileProductDatabase("products.csv");
+
+            var connString = ConfigurationManager.ConnectionStrings["ProductDatabase"].ConnectionString;
+            _database = new Nile.Stores.Sql.SqlProductDatabase(connString);
             //ProductDatabaseExtensions.WithSeedData(_database);
-            _database.WithSeedData();
+            //_database.WithSeedData();
 
             _gridProducts.AutoGenerateColumns = false;
-            UpdateList(); //
+            UpdateList();
         }
 
         private void OnProductEdit( object sender, EventArgs e )
