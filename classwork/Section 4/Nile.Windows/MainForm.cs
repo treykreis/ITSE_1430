@@ -1,7 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Configuration;
 using System.Linq;
 using System.Windows.Forms;
+using Nile.Stores;
+using Nile.Stores.Sql;
 
 namespace Nile.Windows {
     public partial class MainForm : Form {
@@ -14,13 +17,15 @@ namespace Nile.Windows {
         protected override void OnLoad( EventArgs e )
         {
             base.OnLoad(e);
-            _gridProducts.AutoGenerateColumns = false;
-            UpdateList(); 
-        }
+            _miFileExit.Click += ( o, ev ) => Close();
 
-        private void OnFileExit( object sender, EventArgs e )
-        {
-            Close();
+            var connString = ConfigurationManager.ConnectionStrings["ProductDatabase"].ConnectionString;
+            _database = new Nile.Stores.Sql.SqlProductDatabase(connString);
+            //ProductDatabaseExtensions.WithSeedData(_database);
+            //_database.WithSeedData();
+
+            _gridProducts.AutoGenerateColumns = false;
+            UpdateList();
         }
 
         private void OnProductEdit( object sender, EventArgs e )
@@ -48,6 +53,7 @@ namespace Nile.Windows {
 
         private void OnProductAdd( object sender, EventArgs e )
         {
+
             var child = new ProductDetailForm();
             if (child.ShowDialog(this) != DialogResult.OK)
                 return;
@@ -76,7 +82,7 @@ namespace Nile.Windows {
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 return;
 
-            //TODO: delete product
+
             _database.Remove(product.Id);
             UpdateList();
         }
@@ -108,8 +114,6 @@ namespace Nile.Windows {
             //}
         }
 
-        private IProductDatabase _database = new Nile.Stores.SeededMemoryProductDatabase();
-
         private void OnEditRow( object sender, DataGridViewCellEventArgs e )
         {
             var grid = sender as DataGridView;
@@ -135,6 +139,8 @@ namespace Nile.Windows {
             e.SuppressKeyPress = true;
 
         }
+
+        private IProductDatabase _database;
     }
 
     // binding source is a wrapper around the data you work it. datagridview wants to use this
