@@ -99,6 +99,7 @@ namespace MovieLib.Web.Controllers
         public ActionResult List()
         {
             var movies = from m in _database.GetAll()
+                         orderby m.Title
                          select m;
             
             return View(movies.ToViewModel());

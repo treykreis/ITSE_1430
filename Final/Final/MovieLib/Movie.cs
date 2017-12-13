@@ -51,6 +51,15 @@ namespace MovieLib
             //Length must be >= 0.
             if (Length < 0)
                 yield return new ValidationResult("Length must be >= 0.", new[] { "Length" });
+
+            if (ReleaseYear < 1900 || ReleaseYear > 2100)
+                yield return new ValidationResult("Release year must be between 1900 and 2100.", new[] { "ReleaseYear" });
+
+            if (Title.Length > 100)
+                yield return new ValidationResult("Title must be 100 characters or less.", new[] { "Title" });
+
+            if (Title.Length == 1)
+                yield return new ValidationResult("Title must be longer than 1 character.", new[] { "Title" });
         }
 
         #region Private Members
